@@ -4,20 +4,18 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 10:51:38
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-09 21:22:59
+ * @LastEditTime: 2021-04-10 14:52:37
 -->
 <template>
-  
   <div class="header">
-      <div class="logo header_item">民生MS</div>
-      <button class="header_item header_button" @click="admin()">后台</button>
-      <button class="header_item header_button" @click="refresh()">刷新</button>
+    <div class="logo header_item">民生MS</div>
+    <button class="header_item header_button" @click="admin()">后台</button>
+    <button class="header_item header_button" @click="refresh()">刷新</button>
   </div>
-  
+
   <div class="news_outer">
-    
     <div class="rec_news_outer">
-        <div>--为你推荐--</div>
+      <div class="news_uper">为你推荐</div>
       <div
         v-for="item in global_news.rec"
         :key="item"
@@ -28,9 +26,8 @@
       </div>
     </div>
 
-    
     <div class="rand_news_outer">
-        <div>--热度新闻--</div>
+      <div class="news_uper">热度新闻</div>
       <div
         v-for="item in global_news.rand"
         :key="item"
@@ -122,41 +119,55 @@ function admin() {
 
 init();
 </script>
-
+<style>
+.header {
+  display: flex;
+  height: 40px;
+}
+.logo {
+  font-size: 32px;
+  width: 180px;
+}
+.header_button {
+  cursor: pointer;
+  width: 200px;
+  outline: none;
+  border: none;
+  transition: all 0.2s;
+}
+.header_button:hover {
+  background-color: rgb(0, 0, 0);
+  color: aliceblue;
+}
+</style>
 <style scoped>
-.header{
-    display: flex;
-    height: 40px;
+.news_uper {
+  text-align: left;
+  font-size: 20px;
 }
-.logo{
-    font-size: 32px;
-    width: 180px;
-}
-.header_button{
-    cursor: pointer;
-    width: 200px;
-    outline: none;
-    border: none;
-}
-.header_button:hover{
-    background-color: aqua;
-}
-.news_outer{
-    display: flex;
+.news_outer {
+  position: absolute;
+  top: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .rec_news_outer {
-  width: 50%;
+  width: 40vw;
 }
 .rand_news_outer {
-  width: 50%;
+  width: 40vw;
 }
 .new_title {
-  width: 100%;
+  width: fit-content;
   text-align: center;
   cursor: pointer;
   padding: 10px;
 }
 .new_title:hover {
-  background-color: aqua;
+  /* background-color: aqua; */
+
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 </style>

@@ -6,7 +6,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-03-12 15:09:22
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-09 14:48:50
+ * @LastEditTime: 2021-04-11 11:14:53
  */
 // let sql = require("../mysql/mysql")
 let {NewTag,UserTag} =require("../mysql/sqlClass")
@@ -27,6 +27,7 @@ async function browserNews(user_id,news_id){
             userTag.add(user_id,newtaglist[i],newtag.list[i].correlation)
         }
     }
+    return true
     // sql.insert('newbrowse',[0,user.id,news.id,new Date().toLocaleString()])
 
 }

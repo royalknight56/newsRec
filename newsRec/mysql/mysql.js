@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-03-06 15:36:47
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-07 18:47:42
+ * @LastEditTime: 2021-04-11 09:47:48
  */
 let loger = require('../util/loger')
 var mysql = require('mysql');
@@ -42,14 +42,13 @@ queryBySql('SELECT 1 + 1 AS solution',null).then((res)=>{//node时测试
 function queryBySql(sql,parm){
     return new Promise((res, rej) => {
         let retOBJ = {}
-        //查
         pool.getConnection((err, conn) => {
             if (err) {
             } else {
                 conn.query(sql,parm, function (err, result) {
                     if (err) {
                         retOBJ = { state: false, err };
-                        console.log(err)
+                        loger.erro(err)
                         rej(retOBJ)
                         return
                     } else {

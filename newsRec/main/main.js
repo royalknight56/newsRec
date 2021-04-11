@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-07 12:30:26
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-09 13:06:41
+ * @LastEditTime: 2021-04-11 09:40:11
  */
 let {getRecUser}= require('../tools/getRecUsers')
 let {getRecNews,getRandomNews,getNewsContent}=require("../tools/getNews")
@@ -15,6 +15,8 @@ let {register}= require("../tools/registerUser")
 let express = require('express');
 const bodyParser = require('body-parser');
 const loger = require('../util/loger');
+
+const HTTP_PORT = 8068
 
 let app = express();
 // app.use(bodyParser.urlencoded({ extended: true }))
@@ -36,7 +38,6 @@ async function newsRecUser(title,artic){
 
 app.post('/test', async function (req, respon) {//上传新闻接口
     loger.info('/test')
-    console.log(req.body.id)
     respon.send('ttt')
 })
 
@@ -74,8 +75,8 @@ app.post('/getNewsContent', async function (req, respon) {//获得主页推荐�
 })
 
 
-app.listen(8068)
-
-
+app.listen(HTTP_PORT)
+loger.info('服务启动,监听端口'+HTTP_PORT)
+loger.erro('服务启动,监听端口'+HTTP_PORT)
 // console.log(newsRecUser(title,artic))
 // console.log(browserNews(1001,9))
