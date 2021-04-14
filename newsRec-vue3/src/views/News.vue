@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 13:07:28
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-10 14:22:50
+ * @LastEditTime: 2021-04-13 22:46:01
 -->
 <template>
 <div class="header">
@@ -15,8 +15,8 @@
 <div class="new_title">
 {{global_news.obj.new_title}}
 </div>
-<article class="new_content">
-  {{global_news.obj.new_content}}</article>
+<article v-html="global_news.obj.new_content" class="new_content">
+</article>
   <!-- <button @click="back()">返回</button> -->
 </template>
 
@@ -50,5 +50,17 @@ console.log(global_news)
   font-size: 18px;
   text-indent: 2em;
   line-height: 2em;
+}
+
+</style>
+<style>
+article img{
+  width: 80%;
+}
+a{
+  text-decoration: none;
+  user-select: none;
+  pointer-events: none;
+  /* display: none; */
 }
 </style>

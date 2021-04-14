@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-06 18:55:48
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-09 13:07:00
+ * @LastEditTime: 2021-04-14 09:43:22
  */
 let sql = require("./mysql")
 
@@ -89,11 +89,21 @@ class NewTag {
         return new TagList(this.list)
     }
     async add(new_id,tag,correlation){
-        sql.insert('newtag',[new_id,tag,correlation])
+        await sql.insert('newtag',[new_id,tag,correlation])
 
     }
 }
+class Admin {
+    constructor() {
+        this.list = []
+    }
+    async find(id) {
+        let res = await sql.select('admin', '*', `id = ${id}`)
+        this.list = res.result;
+        return this
+    }
 
+}
 class User {
     constructor() {
         this.list = []
@@ -117,7 +127,7 @@ class User {
         let res =await sql.select('user',"max(id)")
         let maxid = res.result[0]['max(id)'];
         let id = maxid+1;
-        sql.insert('user',[id])
+        await sql.insert('user',[id])
 
         return id
     }
@@ -153,7 +163,7 @@ class News {
         let res =await sql.select('news',"max(new_id)")
         let maxid = res.result[0]['max(new_id)'];
         this.id = maxid+1;
-        sql.insert('news',[maxid+1,0,new Date(),0,0,title,content])
+        await sql.insert('news',[maxid+1,0,new Date(),0,0,title,content])
     }
 }
 
@@ -162,5 +172,6 @@ module.exports = {
     UserTag,
     NewTag,
     User,
-    News
+    News,
+    Admin
 }
