@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 09:41:55
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-13 16:39:36
+ * @LastEditTime: 2021-04-14 15:26:10
  */
 import {
     instance
@@ -36,7 +36,7 @@ export const testCall = function (e) {//测试api
  * @LastEditors: RoyalKnight
  */
 export const uploadNews = function (e) {//上传新闻
-    return instance.post('/uploadNewsTest', {
+    return instance.post('/uploadNews', {
         id: e.id,
         title: e.title,
         content: e.content

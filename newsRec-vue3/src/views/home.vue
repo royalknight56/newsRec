@@ -4,12 +4,12 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 10:51:38
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-14 12:05:05
+ * @LastEditTime: 2021-04-15 10:58:59
 -->
 <template>
   <div class="header">
     <div class="logo_text header_item">民生MS</div>
-    <button class="header_item header_button" @click="admin()">后台</button>
+    <button class="header_item header_button" @click="admin()">上传</button>
     <button class="header_item header_button" @click="refresh()">刷新</button>
   </div>
 
@@ -107,13 +107,8 @@ async function refresh() {
   global_news.rand.push(...res2.data);
 }
 async function viewNews(id) {
-  let res = await getNewsContent({ id });
-  let ves = await browserNews({
-    userid: global_userid.value,
-    newsid: id,
-  });
-  global_news.obj = { ...res.data };
-  router.push("/news");
+  
+  router.push("/news"+"?id="+id);
 }
 function admin() {
   router.push("/admin");
@@ -122,38 +117,10 @@ function admin() {
 init();
 </script>
 <style>
-.header {
-  display: flex;
-  height: 80px;
-  padding: 0 40px;
-  background-image: url("../assets/header1.webp");
-  background-position-x: 100px;
-  background-color: rgb(113, 210, 255);
-}
-.logo_text {
-  color: aliceblue;
-  line-height: 60px;
-  font-weight:200;
-  font-size: 32px;
-  width: 180px;   
-  transform: skewX(-10deg);
-}
-.header_button {
-  cursor: pointer;
-  width: 200px;
-  outline: none;
-  border: none;
-  color: rgb(0, 140, 255);
-  font-weight: 600;
-  background-color: rgba(240, 248, 255, 0.151);
-  transition: all 0.2s;
-}
-.header_button:hover {
-  background-color: rgba(0, 0, 0, 0.123);
-  color: aliceblue;
-}
+
 </style>
 <style scoped>
+@import url("../assets/header.css");
 .news_uper {
   text-align: left;
   font-size: 20px;

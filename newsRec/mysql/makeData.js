@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-07 09:53:33
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-14 10:17:43
+ * @LastEditTime: 2021-04-17 16:57:59
  */
 let sql = require("./mysql")
 let { getRecUser } = require('../tools/getRecUsers')
@@ -69,5 +69,3 @@ async function main() {
     }
     )
 }
-
-main()

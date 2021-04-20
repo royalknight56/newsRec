@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    height: 80px;
+    padding: 0 40px;
+    background-image: url("../assets/header1.webp");
+    background-position-x: 100px;
+    background-color: rgb(113, 210, 255);
+  }
+  .logo_text {
+    color: aliceblue;
+    line-height: 60px;
+    font-weight:200;
+    font-size: 32px;
+    width: 180px;   
+    transform: skewX(-10deg);
+  }
+  .header_button {
+    cursor: pointer;
+    width: 200px;
+    outline: none;
+    border: none;
+    color: rgb(0, 140, 255);
+    font-weight: 600;
+    background-color: rgba(240, 248, 255, 0.151);
+    transition: all 0.2s;
+  }
+  .header_button:hover {
+    background-color: rgba(0, 0, 0, 0.123);
+    color: aliceblue;
+  }

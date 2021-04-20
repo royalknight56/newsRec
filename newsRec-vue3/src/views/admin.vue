@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 13:53:31
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-13 19:13:37
+ * @LastEditTime: 2021-04-15 10:59:14
 -->
 <template>
   <div class="admin_outer">
@@ -23,12 +23,12 @@
         >
           上传
         </button>
-        <button
+        <!-- <button
           class="input_item input_button input_button_upload"
           @click="test()"
         >
           测试
-        </button>
+        </button> -->
 
         <button
           class="input_item input_button input_button_back"
@@ -89,6 +89,7 @@ function back() {
 </script>
 
 <style scoped>
+@import url("../assets/header.css");
 .admin_outer {
   display: flex;
   height: 100vh;
@@ -151,6 +152,4 @@ function back() {
   text-align: center;
   margin: 20px;
 }
-</style>
-<style>
 </style>

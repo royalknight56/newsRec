@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-12 10:45:36
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-13 22:36:47
+ * @LastEditTime: 2021-04-14 15:22:33
  
 -->
 <template>
@@ -75,5 +75,6 @@ function execCommand(name, args = null) {
   resize: none;
   outline: none;
   border: 1px solid rgb(163, 163, 163);
+  overflow: auto;
 }
 </style>
