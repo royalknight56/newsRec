@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 09:41:55
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-14 15:26:10
+ * @LastEditTime: 2021-05-12 21:31:50
  */
 import {
     instance
@@ -130,4 +130,11 @@ export const getNewsContent = function (e) {
             id: e.id
         }
     )
+}
+
+
+export const getPush = function (e) {
+    return instance.post('/getPush', {
+        id: e.id
+    })
 }

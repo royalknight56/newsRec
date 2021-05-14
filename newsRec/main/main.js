@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-07 12:30:26
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-13 19:40:11
+ * @LastEditTime: 2021-05-12 21:22:25
  */
 require("../mysql/makeData")
 
@@ -13,6 +13,9 @@ let { getRecNews, getRandomNews, getNewsContent } = require("../tools/getNews")
 let { storeKeyWords } = require('../tools/getNewsKeyWords')
 let { browserNews } = require("../tools/userBrowse")
 let { register, isAdmin } = require("../tools/registerUser")
+let { addPush,getPush } = require("../tools/pushSys")
+
+getPush(1011)
 
 let express = require('express');
 const bodyParser = require('body-parser');
@@ -110,7 +113,18 @@ app.post('/getNewsContent', async function (req, respon) {//获得新闻内容
     let res = await getNewsContent(req.body.id)
     respon.send(JSON.stringify(res))
 })
-
+app.post('/getPush', async function (req, respon) {//获得推送消息
+    // loger.info('/getPush')
+    let res = await getPush(req.body.id)
+    respon.send(JSON.stringify(res))
+})
+app.post('/addPush', async function (req, respon) {//获得推送消息
+    loger.info('/addPush')
+    let res = await addPush(req.body.userlist,JSON.stringify({
+        newsid:req.body.newsid
+    }))
+    respon.send(JSON.stringify(res))
+})
 
 app.listen(HTTP_PORT)
 loger.info('服务启动,监听端口' + HTTP_PORT)

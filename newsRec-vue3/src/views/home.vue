@@ -4,13 +4,14 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 10:51:38
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-15 10:58:59
+ * @LastEditTime: 2021-05-12 22:21:47
 -->
 <template>
   <div class="header">
     <div class="logo_text header_item">民生MS</div>
     <button class="header_item header_button" @click="admin()">上传</button>
     <button class="header_item header_button" @click="refresh()">刷新</button>
+    <button class="header_item header_button" @click="changeAccount()">切换账号</button>
   </div>
 
   <div class="news_outer">
@@ -21,7 +22,7 @@
         :key="item"
         class="new_title"
         @click="viewNews(item.id)"
-        :title='item.title'
+        :title="item.title"
       >
         {{ item.title }}
       </div>
@@ -34,7 +35,7 @@
         :key="item"
         class="new_title"
         @click="viewNews(item.id)"
-        :title='item.title'
+        :title="item.title"
       >
         {{ item.title }}
       </div>
@@ -43,7 +44,7 @@
 </template>
 
 <script setup>
-import { inject, reactive } from "vue";
+import { inject, onUnmounted, reactive, useContext } from "vue";
 import { useRouter } from "vue-router";
 import {
   getRandomNews,
@@ -51,15 +52,21 @@ import {
   getNewsContent,
   testCall,
   browserNews,
+  getPush,
 } from "../api/api_call";
+import { ElNotification } from "element-plus";
 
 let router = useRouter();
 let global_userid = inject("global_userid");
 let global_news = inject("global_news");
 
+let ctx = useContext();
+console.log(ctx);
+
 function init() {
   if (global_userid.value != 0) {
     getNews();
+    getPushTimer();
   } else {
     router.push("login");
   }
@@ -107,17 +114,45 @@ async function refresh() {
   global_news.rand.push(...res2.data);
 }
 async function viewNews(id) {
-  
-  router.push("/news"+"?id="+id);
+  router.push("/news" + "?id=" + id);
 }
 function admin() {
   router.push("/admin");
 }
 
+function changeAccount(){
+  localStorage.setItem("userid",'')
+  router.push("/login");
+}
+
+function getPushTimer() {
+  let timer = setInterval(async () => {
+    console.log("获取推送消息");
+    let res = await getPush({
+      id: global_userid.value,
+    });
+    console.log(res);
+    if (res.data.length > 0) {
+      for (let i = 0; i < res.data.length; i++) {
+        ElNotification({
+          title: "提示",
+          message: "有新的民生信息推送" + JSON.parse(res.data[i].message).newsid,
+          onClick:()=>{
+            router.push("/news" + "?id=" + JSON.parse(res.data[i].message).newsid);
+          }
+        });
+
+      }
+    }
+  }, 10000);
+  onUnmounted(()=>{
+    clearInterval(timer)
+  })
+}
+
 init();
 </script>
 <style>
-
 </style>
 <style scoped>
 @import url("../assets/header.css");
@@ -125,7 +160,7 @@ init();
   text-align: left;
   font-size: 20px;
 }
-.news_uper::before{
+.news_uper::before {
   content: "〓";
 }
 .news_outer {
@@ -149,10 +184,10 @@ init();
   cursor: pointer;
   padding: 10px;
   white-space: nowrap;
-  text-overflow:ellipsis;
+  text-overflow: ellipsis;
   overflow: hidden;
 }
-.new_title::before{
+.new_title::before {
   content: "■";
   color: rgba(0, 0, 0, 0.315);
 }
