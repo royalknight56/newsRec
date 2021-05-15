@@ -4,14 +4,17 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 10:51:38
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-05-12 22:21:47
+ * @LastEditTime: 2021-05-15 20:36:57
 -->
 <template>
   <div class="header">
     <div class="logo_text header_item">民生MS</div>
-    <button class="header_item header_button" @click="admin()">上传</button>
+    <button class="header_item header_button" v-if="ifadminTag" @click="admin()">上传</button>
     <button class="header_item header_button" @click="refresh()">刷新</button>
-    <button class="header_item header_button" @click="changeAccount()">切换账号</button>
+    <button class="header_item header_button" @click="changeAccount()">
+      切换账号
+    </button>
+    <div class="header_item header_button">用户编号：{{ global_userid }}</div>
   </div>
 
   <div class="news_outer">
@@ -44,7 +47,7 @@
 </template>
 
 <script setup>
-import { inject, onUnmounted, reactive, useContext } from "vue";
+import { inject, onUnmounted, reactive, ref, useContext } from "vue";
 import { useRouter } from "vue-router";
 import {
   getRandomNews,
@@ -53,6 +56,7 @@ import {
   testCall,
   browserNews,
   getPush,
+  ifadmin,
 } from "../api/api_call";
 import { ElNotification } from "element-plus";
 
@@ -61,12 +65,18 @@ let global_userid = inject("global_userid");
 let global_news = inject("global_news");
 
 let ctx = useContext();
+
 console.log(ctx);
 
-function init() {
+let ifadminTag = ref(false);
+async function init() {
   if (global_userid.value != 0) {
     getNews();
     getPushTimer();
+    let res = await ifadmin({ id: global_userid.value });
+    if(res.data==true){
+      ifadminTag.value=true
+    }
   } else {
     router.push("login");
   }
@@ -120,8 +130,8 @@ function admin() {
   router.push("/admin");
 }
 
-function changeAccount(){
-  localStorage.setItem("userid",'')
+function changeAccount() {
+  localStorage.setItem("userid", "");
   router.push("/login");
 }
 
@@ -136,18 +146,20 @@ function getPushTimer() {
       for (let i = 0; i < res.data.length; i++) {
         ElNotification({
           title: "提示",
-          message: "有新的民生信息推送" + JSON.parse(res.data[i].message).newsid,
-          onClick:()=>{
-            router.push("/news" + "?id=" + JSON.parse(res.data[i].message).newsid);
-          }
+          message:
+            "有新的民生信息推送" + JSON.parse(res.data[i].message).newsid,
+          onClick: () => {
+            router.push(
+              "/news" + "?id=" + JSON.parse(res.data[i].message).newsid
+            );
+          },
         });
-
       }
     }
   }, 10000);
-  onUnmounted(()=>{
-    clearInterval(timer)
-  })
+  onUnmounted(() => {
+    clearInterval(timer);
+  });
 }
 
 init();

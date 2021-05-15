@@ -14,6 +14,11 @@
     width: 180px;   
     transform: skewX(-10deg);
   }
+  .header_item{
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+  }
   .header_button {
     cursor: pointer;
     width: 200px;

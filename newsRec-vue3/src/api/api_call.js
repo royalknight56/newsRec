@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 09:41:55
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-05-12 21:31:50
+ * @LastEditTime: 2021-05-15 20:48:31
  */
 import {
     instance
@@ -138,3 +138,19 @@ export const getPush = function (e) {
         id: e.id
     })
 }
+
+export const ifadmin = function (e) {
+    return instance.post('/ifadmin', {
+        id: e.id
+    })
+}
+
+export const addPush = function (e) {
+    return instance.post('/addPush', {
+        userlist: e.userlist,
+        newsid:e.newsid
+
+    })
+}
+
+

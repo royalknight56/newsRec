@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 13:53:31
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-15 10:59:14
+ * @LastEditTime: 2021-05-15 21:01:35
 -->
 <template>
   <div class="admin_outer">
@@ -40,6 +40,9 @@
     </div>
     <div class="recuser_outer">
       <div class="recuser_header">推荐的用户</div>
+      <input class="recuser_header" v-model="adduser_account">
+      <div class="recuser_header" @click="add_user()">添加用户</div>
+      <div class="recuser_header" @click="start_push()">推送</div>
       <div class="recuser_list">
         <div class="recuser_item" v-for="item in user_list" :key="item">
           {{ item.id }}
@@ -51,7 +54,7 @@
 
 <script setup>
 import { inject, reactive, ref } from "vue";
-import { uploadNews } from "../api/api_call";
+import { uploadNews,addPush } from "../api/api_call";
 import { useRouter } from "vue-router";
 import richText from "../components/richText.vue";
 let router = useRouter();
@@ -60,6 +63,9 @@ let global_userid = inject("global_userid");
 let content = ref("");
 let title = ref("");
 let user_list = reactive([]);
+
+let adduser_account = ref("")
+let push_newsid = ref('')
 
 async function upload() {
   let res = await uploadNews({
@@ -77,7 +83,8 @@ async function upload() {
       alert("参数错误");
     }
   } else {
-    user_list.push(...res.data);
+    push_newsid.value=res.data.newid
+    user_list.push(...res.data.list);
   }
 }
 function test() {
@@ -85,6 +92,23 @@ function test() {
 }
 function back() {
   router.back();
+}
+
+//添加推送目标
+function add_user(){
+user_list.push({
+  id:adduser_account.value
+})
+}
+
+//开始推送
+function start_push(){
+  let us = JSON.parse(JSON.stringify(user_list));
+
+  addPush({
+   userlist:us,
+   newsid:push_newsid.value
+ })
 }
 </script>
 

@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-07 12:30:26
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-05-12 21:22:25
+ * @LastEditTime: 2021-05-15 20:59:48
  */
 require("../mysql/makeData")
 
@@ -38,7 +38,8 @@ app.all('*', (req, res, next) => {
 
 async function newsRecUser(title, artic) {
     let newid = await storeKeyWords(title, artic);//提取新闻关键词
-    return await getRecUser(newid)//获得推荐用户列表
+    let list =await getRecUser(newid)//获得推荐用户列表
+    return {newid,list}
 }
 
 app.post('/test', async function (req, respon) {//测试接口
@@ -71,10 +72,9 @@ app.post('/uploadNewsTest', async function (req, respon) {//上传新闻接口(�
     if (isAd) {
         if (req.body.content && req.body.title) {
             // let res = await newsRecUser(req.body.title, req.body.content);
-            respon.send(JSON.stringify([
-                {id:1003},
-                {id:1002}
-            ]))
+            let newid= 1003;
+            let list = [{id:1004}]
+            respon.send(JSON.stringify({newid,list}))
         } else {
             respon.send(JSON.stringify({
                 code: 404
@@ -86,14 +86,23 @@ app.post('/uploadNewsTest', async function (req, respon) {//上传新闻接口(�
         }))
     }
 })
+
 app.post('/browserNews', async function (req, respon) {//浏览新闻接口
     loger.info('/browserNews')
     let res = await browserNews(req.body.userid, req.body.newsid);
     respon.send(JSON.stringify(res))
 })
+
 app.post('/register', async function (req, respon) {//注册
     loger.info('/register')
     let res = await register();
+    respon.send(JSON.stringify(res))
+})
+
+app.post('/ifadmin', async function (req, respon) {//测试接口
+    loger.info('/ifadmin')
+    console.log(req.body.id)
+    let res = await isAdmin(req.body.id);
     respon.send(JSON.stringify(res))
 })
 
@@ -118,7 +127,7 @@ app.post('/getPush', async function (req, respon) {//获得推送消息
     let res = await getPush(req.body.id)
     respon.send(JSON.stringify(res))
 })
-app.post('/addPush', async function (req, respon) {//获得推送消息
+app.post('/addPush', async function (req, respon) {//添加推送消息
     loger.info('/addPush')
     let res = await addPush(req.body.userlist,JSON.stringify({
         newsid:req.body.newsid
