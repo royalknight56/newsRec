@@ -4,12 +4,13 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 10:51:38
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-05-15 20:36:57
+ * @LastEditTime: 2021-05-16 10:20:42
 -->
 <template>
   <div class="header">
     <div class="logo_text header_item">民生MS</div>
-    <button class="header_item header_button" v-if="ifadminTag" @click="admin()">上传</button>
+    <!-- <button class="header_item header_button" v-if="ifadminTag" @click="admin()">上传</button> -->
+    <button class="header_item header_button" @click="admin()">上传</button>
     <button class="header_item header_button" @click="refresh()">刷新</button>
     <button class="header_item header_button" @click="changeAccount()">
       切换账号
