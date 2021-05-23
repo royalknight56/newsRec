@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-07 12:30:26
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-05-15 20:59:48
+ * @LastEditTime: 2021-05-19 11:08:13
  */
 require("../mysql/makeData")
 
@@ -101,7 +101,6 @@ app.post('/register', async function (req, respon) {//注册
 
 app.post('/ifadmin', async function (req, respon) {//测试接口
     loger.info('/ifadmin')
-    console.log(req.body.id)
     let res = await isAdmin(req.body.id);
     respon.send(JSON.stringify(res))
 })

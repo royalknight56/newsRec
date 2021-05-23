@@ -4,9 +4,9 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 09:56:11
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-09 13:55:26
+ * @LastEditTime: 2021-05-20 20:05:27
  */
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import Login from '../views/login.vue'
 import Home from '../views/home.vue'
 import News from '../views/News.vue'
@@ -49,7 +49,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes
 })
 

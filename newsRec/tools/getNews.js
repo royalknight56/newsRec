@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 12:41:00
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-09 14:52:36
+ * @LastEditTime: 2021-05-20 20:20:32
  */
 let sql = require("../mysql/mysql");
 const { News } = require("../mysql/sqlClass");
@@ -14,12 +14,12 @@ async function getRecNews(id,curPage=1,pageSize=20) {
     let res1 = await sql.query(`
 
     SELECT * from (SELECT ri.id,ri.tag,COUNT(ri.tag) as cou from
-(SELECT * from usertag WHERE usertag.correlation>30 AND usertag.user_id = ${id}) as le
+(SELECT * from usertag WHERE usertag.correlation>10 AND usertag.user_id = ${id}) as le
 LEFT JOIN
-(SELECT * from newtag WHERE newtag.correlation>30) as ri
+(SELECT * from newtag WHERE newtag.correlation>10) as ri
 ON le.tag = ri.tag
 GROUP BY id
-HAVING cou>3) AS tes
+HAVING cou>2) AS tes
 LEFT JOIN
 news
 ON news.new_id = tes.id

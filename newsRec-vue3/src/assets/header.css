@@ -29,6 +29,15 @@
     background-color: rgba(240, 248, 255, 0.151);
     transition: all 0.2s;
   }
+  @media screen and (max-width: 500px) {
+    .header_button_change{
+      display: none;
+    }
+    .header_button_id{
+      display: none;
+    }
+}
+
   .header_button:hover {
     background-color: rgba(0, 0, 0, 0.123);
     color: aliceblue;

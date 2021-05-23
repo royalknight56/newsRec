@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 10:15:20
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-05-15 19:31:47
+ * @LastEditTime: 2021-05-20 20:03:08
 -->
 <template>
 
@@ -27,7 +27,7 @@
         ></div>
       </div>
       <div class="login_inner_width">
-        <div class="login_continer" ref="tabCon">
+        <div class="login_continer">
           <div class="login_login login_tab">
             <!-- <img src="../../assets/mylogo.png" width="150px" /> -->
             <div class="label">民生新闻网</div>

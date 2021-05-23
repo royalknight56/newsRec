@@ -4,7 +4,7 @@
  * @Author: RoyalKnight
  * @Date: 2021-03-12 14:40:43
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-04-11 11:15:43
+ * @LastEditTime: 2021-05-20 20:25:11
  */
 
 let sql = require("../mysql/mysql")
@@ -24,12 +24,12 @@ async function getRecUser(id,curPage=1,pageSize=20) {
     let recUserList = []
     let res1 = await sql.query(
     `SELECT * from (SELECT le.user_id,ri.tag,COUNT(ri.tag) as cou from
-(SELECT * from usertag WHERE usertag.correlation>30) as le
+(SELECT * from usertag WHERE usertag.correlation>10) as le
 LEFT JOIN
-(SELECT * from newtag WHERE newtag.correlation>30 AND newtag.id = ${id}) as ri
+(SELECT * from newtag WHERE newtag.correlation>10 AND newtag.id = ${id}) as ri
 ON le.tag = ri.tag
 GROUP BY id
-HAVING cou>3) AS tes
+HAVING cou>2) AS tes
 ORDER BY cou DESC
 limit ${(curPage-1)*pageSize},${pageSize}
 `

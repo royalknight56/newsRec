@@ -4,18 +4,18 @@
  * @Author: RoyalKnight
  * @Date: 2021-04-09 10:51:38
  * @LastEditors: RoyalKnight
- * @LastEditTime: 2021-05-16 10:20:42
+ * @LastEditTime: 2021-05-20 20:41:17
 -->
 <template>
   <div class="header">
     <div class="logo_text header_item">民生MS</div>
     <!-- <button class="header_item header_button" v-if="ifadminTag" @click="admin()">上传</button> -->
-    <button class="header_item header_button" @click="admin()">上传</button>
+    <button class="header_item header_button" v-if="ifadminTag" @click="admin()">上传</button>
     <button class="header_item header_button" @click="refresh()">刷新</button>
-    <button class="header_item header_button" @click="changeAccount()">
+    <button class="header_item header_button header_button_change" @click="changeAccount()">
       切换账号
     </button>
-    <div class="header_item header_button">用户编号：{{ global_userid }}</div>
+    <div class="header_item header_button header_button_id">用户编号：{{ global_userid }}</div>
   </div>
 
   <div class="news_outer">
@@ -70,6 +70,7 @@ let ctx = useContext();
 console.log(ctx);
 
 let ifadminTag = ref(false);
+
 async function init() {
   if (global_userid.value != 0) {
     getNews();
@@ -157,7 +158,7 @@ function getPushTimer() {
         });
       }
     }
-  }, 10000);
+  }, 3000);
   onUnmounted(() => {
     clearInterval(timer);
   });
@@ -182,13 +183,17 @@ init();
   width: 100%;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 .rec_news_outer {
   width: 40vw;
+  min-width: 300px;
 }
 .rand_news_outer {
   width: 40vw;
+  min-width: 300px;
 }
+
 .new_title {
   width: fit-content;
   max-width: 100%;
